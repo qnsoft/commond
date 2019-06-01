@@ -1,2 +1,2 @@
 # commond
-公用库
+企能golang公用库
