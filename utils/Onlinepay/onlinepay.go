@@ -143,7 +143,11 @@ func PackageTime(count, satart, end int) []int {
 		} else {
 
 			now = php2go.Rand(satart, end-2)
-			_rt = append(_rt, now+i)
+			if now+i < 58 {
+				_rt = append(_rt, now+i)
+			} else {
+				_rt = append(_rt, i)
+			}
 		}
 
 	}

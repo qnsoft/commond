@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math/rand"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -39,5 +40,27 @@ func GetRandomNum(lens int) string {
 */
 func Str_Left(_old_str, _char string, _len int) string {
 	_str := fmt.Sprintf("%"+_char+strconv.Itoa(_len)+"s", _old_str)
+	return _str
+}
+
+/*
+*获取中间字符串 GetBetweenStr("满500元减10元", "减", "元") 输出10
+@_str 要处理的字符串
+@start开始字符串
+@end结束字符串
+*/
+func GetBetweenStr(_str, start, end string) string {
+	n := strings.Index(_str, start)
+	if n == -1 {
+		n = 0
+	} else {
+		n = n + len(start) // 增加了else，不加的会把start带上
+	}
+	_str = string([]byte(_str)[n:])
+	m := strings.Index(_str, end)
+	if m == -1 {
+		m = len(_str)
+	}
+	_str = string([]byte(_str)[:m])
 	return _str
 }

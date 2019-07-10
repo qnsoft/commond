@@ -1,7 +1,9 @@
 package StringHelper
 
 import (
-	"image/jpeg"
+	"image/png"
+	"os"
+	"zhenfangbian/web_api/utils/ErrorHelper"
 	"zhenfangbian/web_api/utils/FileHelper"
 
 	"github.com/astaxie/beego"
@@ -22,7 +24,7 @@ type QrCode struct {
 }
 
 const (
-	EXT_JPG = ".jpg"
+	EXT_JPG = ".png"
 )
 
 func NewQrCode(url string, width, height int, level qr.ErrorCorrectionLevel, mode qr.Encoding) *QrCode {
@@ -74,25 +76,27 @@ func (q *QrCode) Encode(path string) (string, string, error) {
 	if FileHelper.CheckNotExist(src) == true {
 		code, err := qr.Encode(q.URL, q.Level, q.Mode)
 		if err != nil {
+			ErrorHelper.LogInfo("生成二维码出错1：", err)
 			return "", "", err
 		}
 
 		code, err = barcode.Scale(code, q.Width, q.Height)
 		if err != nil {
+			ErrorHelper.LogInfo("生成二维码出错2：", err)
 			return "", "", err
 		}
-
-		f, err := FileHelper.MustOpen(name, path)
+		f, err := os.Create(src)
 		if err != nil {
+			ErrorHelper.LogInfo("打开已生成二维码文件出错：", err)
+			//log.Fatal(err)
+		}
+		err = png.Encode(f, code) //质量
+		// //	err = png.Encode(f, code, &jpeg.Options{10}) //质量
+		if err != nil {
+			ErrorHelper.LogInfo("生成png二维码出错：", err)
 			return "", "", err
 		}
 		defer f.Close()
-
-		err = jpeg.Encode(f, code, nil)
-		if err != nil {
-			return "", "", err
-		}
 	}
-
 	return name, path, nil
 }

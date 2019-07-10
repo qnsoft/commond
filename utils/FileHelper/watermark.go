@@ -161,7 +161,7 @@ func WaterMark_text_one(img image.Image, markText MarkText) (image.Image, error)
 	rgba := markText.Color
 	c.SetColor(color.RGBA{rgba[0], rgba[1], rgba[2], rgba[3]})
 	//设置文字坐标间距
-	c.FillString(fontStyle, vg.Point{X: 930, Y: 1360}, marktext)
+	c.FillString(fontStyle, vg.Point{X: 685, Y: 1005}, marktext)
 	// 画布写入新图片
 	// 使用buffer去转换
 	jc := vgimg.PngCanvas{Canvas: c}
@@ -229,7 +229,7 @@ func ImageToBuffer(img image.Image, ext string) (rv *bytes.Buffer, err error) {
 	rv = new(bytes.Buffer)
 	switch ext {
 	case ".jpg", ".jpeg":
-		err = jpeg.Encode(rv, img, &jpeg.Options{Quality: 100})
+		err = jpeg.Encode(rv, img, &jpeg.Options{Quality: 50})
 	case ".png":
 		err = png.Encode(rv, img)
 	}

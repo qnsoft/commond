@@ -21,3 +21,35 @@ func Max_IntArry_One(_arry []int) (int, int) {
 	}
 	return maxVal, maxIndex
 }
+
+// /**
+// 根据key排序
+// */
+// func sortMap2(mp map[string]string) map[string]string {
+// 	var newMp = make([]string, 0)
+// 	for k, _ := range mp {
+// 		newMp = append(newMp, k)
+// 	}
+// 	sort.Strings(newMp)
+// 	for _, v := range newMp {
+// 		fmt.Println("根据key排序后的新集合》》   key:", v, "    value:", mp[v])
+// 	}
+// 	return newMp
+// }
+
+// /**
+// 根据value排序
+// */
+// func sortMap(mp map[string]string) map[string]string {
+// 	var newMp = make([]int, 0)
+// 	var newMpKey = make([]string, 0)
+// 	for oldk, v := range mp {
+// 		newMp = append(newMp, v)
+// 		newMpKey = append(newMpKey, oldk)
+// 	}
+// 	sort.Ints(newMp)
+// 	for k, v := range newMp {
+// 		fmt.Println("根据value排序后的新集合》》  key:", newMpKey[k], "    value:", v)
+// 	}
+// 	return newMp
+// }

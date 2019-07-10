@@ -9,6 +9,8 @@ import (
 	"net/url"
 	"zhenfangbian/web_api/utils/ErrorHelper"
 	"zhenfangbian/web_api/utils/php2go"
+
+	"code.google.com/p/mahonia"
 )
 
 //md5方法
@@ -118,4 +120,13 @@ func RsaDecrypt(ciphertext []byte) ([]byte, error) {
 		return nil, err
 	}
 	return rsa.DecryptPKCS1v15(rand.Reader, priv, ciphertext)
+}
+
+//GBK和UTF8互转 UseNewEncoder("要转编码的字符串","gbk","utf-8")
+func GBK_UTF8_Encoder(src string, oldEncoder string, newEncoder string) string {
+	srcDecoder := mahonia.NewDecoder(oldEncoder)
+	desDecoder := mahonia.NewDecoder(newEncoder)
+	resStr := srcDecoder.ConvertString(src)
+	_, resBytes, _ := desDecoder.Translate([]byte(resStr), true)
+	return string(resBytes)
 }
